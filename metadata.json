@@ -1,0 +1,6 @@
+{
+  "name": "Isaac Faith and Hope Christian Farming Initiative (IFHCFI)",
+  "description": "Indigenous, faith-based Ugandan NGO empowering vulnerable populations through sustainable agriculture, vocational skills, prison rehabilitation, and community transformation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
