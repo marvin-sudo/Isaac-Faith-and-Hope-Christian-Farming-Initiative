@@ -208,10 +208,10 @@ export const Hero: React.FC<HeroProps> = ({
           */}
           <div 
             key={currentSlide}
-            className="animate-hero-text space-y-4 max-w-3xl mx-auto text-center"
+            className="space-y-4 max-w-3xl mx-auto text-center"
           >
             {/* Dominant Main Heading with Strong Visual Hierarchy & Bold Gold Keyword Accent */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-white leading-[1.18] tracking-tight [text-wrap:balance] text-center">
+            <h1 className="animate-hero-headline text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-white leading-[1.18] tracking-tight [text-wrap:balance] text-center">
               {activeSlide.headingPrefix}
               <span className="font-extrabold text-yellow-400">
                 {activeSlide.headingKeyword}
@@ -220,7 +220,7 @@ export const Hero: React.FC<HeroProps> = ({
             </h1>
 
             {/* Concise, Powerful Copy with Warm Highlights */}
-            <p className="text-sm sm:text-base lg:text-lg text-stone-200 leading-relaxed font-light max-w-2xl mx-auto text-center">
+            <p className="animate-hero-subtext text-sm sm:text-base lg:text-lg text-stone-200 leading-relaxed font-light max-w-2xl mx-auto text-center">
               {activeSlide.narrativeLead}
               <strong className="font-bold text-yellow-300">
                 {activeSlide.narrativeKeyword1}
@@ -234,15 +234,15 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Action Buttons: Primary & Secondary centered */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            {/* Primary 1: Support Our Mission */}
+          <div className="animate-hero-actions flex flex-wrap items-center justify-center gap-3 pt-2">
+            {/* Primary 1: DONATE NOW */}
             <button
               type="button"
               onClick={onOpenDonateModal}
-              className="px-5 py-3 rounded-full bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:shadow-yellow-400/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2"
+              className="btn-micro px-5 py-3 rounded-full bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:shadow-yellow-400/20 transition-all cursor-pointer flex items-center gap-2"
             >
               <Sprout className="w-4 h-4 text-stone-950" />
-              <span>Support Our Mission</span>
+              <span>DONATE NOW</span>
             </button>
 
             {/* Primary 2: Explore Our Programmes */}
@@ -252,7 +252,7 @@ export const Hero: React.FC<HeroProps> = ({
                 if (onNavigate) onNavigate('programmes');
                 else onExploreProject();
               }}
-              className="px-5 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm tracking-wide border border-white/25 shadow-md hover:shadow-white/10 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2"
+              className="btn-micro px-5 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm tracking-wide border border-white/25 shadow-md hover:shadow-white/10 transition-all cursor-pointer flex items-center gap-2"
             >
               <Wheat className="w-4 h-4 text-emerald-300" />
               <span>Explore Our Programmes</span>
@@ -265,23 +265,22 @@ export const Hero: React.FC<HeroProps> = ({
                 if (onNavigate) onNavigate('about');
                 else onOpenDocModal();
               }}
-              className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
+              className="btn-micro px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
             >
               <Leaf className="w-3.5 h-3.5 text-yellow-300" />
               <span>Our Story</span>
             </button>
 
-            {/* Secondary 2: Get Involved */}
+            {/* Secondary 2: Volunteer With Us */}
             <button
               type="button"
               onClick={() => {
-                if (onNavigate) onNavigate('get-involved');
-                else onOpenDonateModal();
+                if (onNavigate) onNavigate('volunteers');
               }}
-              className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
+              className="btn-micro px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
             >
               <SunMedium className="w-3.5 h-3.5 text-amber-300" />
-              <span>Get Involved</span>
+              <span>Volunteer With Us</span>
             </button>
           </div>
 

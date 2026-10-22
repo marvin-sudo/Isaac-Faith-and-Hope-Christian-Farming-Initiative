@@ -11,10 +11,8 @@ import {
   RefreshCw, 
   Sprout, 
   Scale, 
-  Users, 
-  ArrowRight 
+  Users 
 } from 'lucide-react';
-import { PillCtaButton } from '../components/PillCtaButton';
 import treeImg from '../assets/images/tree_agroforestry_1790277966958.jpg';
 
 interface VisionMissionPageProps {
@@ -24,41 +22,41 @@ interface VisionMissionPageProps {
 
 export const VisionMissionPage: React.FC<VisionMissionPageProps> = ({ onNavigate, onOpenDocModal }) => {
   return (
-    <div className="min-h-screen bg-[#FBF9F5] py-10 px-4 sm:px-6 lg:px-8 space-y-12">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
-          <button 
-            onClick={() => onNavigate('home')} 
-            className="hover:text-emerald-800 transition-colors cursor-pointer"
-          >
-            Home
-          </button>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-          <button 
-            onClick={() => onNavigate('about')} 
-            className="hover:text-emerald-800 transition-colors cursor-pointer"
-          >
-            About Us
-          </button>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-          <span className="text-emerald-900 font-semibold">Vision, Mission &amp; Core Values</span>
+    <div className="min-h-screen bg-[#FBF9F5]">
+      {/* Full-width Hero Section (Not a card, edge-to-edge) */}
+      <section className="relative w-full overflow-hidden text-white bg-stone-950 py-16 sm:py-20 lg:py-24">
+        {/* Background Image & Scrim */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={treeImg} 
+            alt="Agroforestry nursery seedlings and vision in Uganda" 
+            className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.05]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/80 to-stone-950/40" />
+          <div className="absolute inset-0 bg-stone-950/20 backdrop-blur-[1px]" />
         </div>
 
-        {/* Hero Banner with Relevant Background Image */}
-        <div className="relative rounded-3xl overflow-hidden text-white shadow-2xl bg-stone-950 p-8 sm:p-12">
-          {/* Background Image & Scrim */}
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={treeImg} 
-              alt="Agroforestry nursery seedlings and vision in Uganda" 
-              className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.05]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/80 to-stone-950/40" />
-            <div className="absolute inset-0 bg-stone-950/20 backdrop-blur-[1px]" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-2 text-xs text-stone-300 font-medium">
+            <button 
+              onClick={() => onNavigate('home')} 
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Home
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+            <button 
+              onClick={() => onNavigate('about')} 
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              About Us
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+            <span className="text-white font-semibold">Vision, Mission &amp; Core Values</span>
           </div>
 
-          <div className="relative z-10 max-w-3xl space-y-4">
+          <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-stone-100 text-xs font-semibold backdrop-blur-md">
               <Compass className="w-4 h-4 text-yellow-300" />
               <span>Divine Mandate &amp; Strategic Purpose</span>
@@ -69,24 +67,12 @@ export const VisionMissionPage: React.FC<VisionMissionPageProps> = ({ onNavigate
             <p className="text-stone-200 text-sm sm:text-base leading-relaxed">
               Grounding our hands in agricultural labor and our hearts in Jesus Christ to bring food sovereignty, restorative justice, and eternal hope to Uganda.
             </p>
-
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <PillCtaButton
-                onClick={() => onNavigate('get-involved')}
-                size="md"
-                label="Partner With Our Vision"
-              />
-              <button
-                onClick={() => onNavigate('who-we-are')}
-                className="px-5 py-3 bg-white/15 hover:bg-white/25 text-white border border-white/20 font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
-              >
-                <span>Read Who We Are</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
         </div>
+      </section>
 
+      {/* Main Page Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
         {/* Vision & Mission Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Vision Statement */}

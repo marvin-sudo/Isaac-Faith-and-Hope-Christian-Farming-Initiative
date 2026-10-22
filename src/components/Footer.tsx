@@ -211,6 +211,14 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  onClick={() => onSelectNav('test-before-you-treat')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Test before you treat (Laboratory)
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onSelectNav('combat-center')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >

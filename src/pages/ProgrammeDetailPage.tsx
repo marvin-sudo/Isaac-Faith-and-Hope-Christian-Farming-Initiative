@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ChevronRight,
   ArrowLeft,
@@ -7,18 +7,13 @@ import {
   Users,
   CheckCircle2,
   Sparkles,
-  Download,
   HeartHandshake,
-  Share2,
   BookOpen,
   ShieldCheck,
-  Check,
   Building2,
   Tag
 } from 'lucide-react';
 import { AdminProgramme } from '../data/adminStore';
-import { PillCtaButton } from '../components/PillCtaButton';
-import { generateAndDownloadPDF } from '../utils/pdfGenerator';
 
 interface ProgrammeDetailPageProps {
   programme: AdminProgramme;
@@ -31,19 +26,6 @@ export const ProgrammeDetailPage: React.FC<ProgrammeDetailPageProps> = ({
   onNavigate,
   onOpenDocModal,
 }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleShare = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  const handleDownloadPDF = () => {
-    generateAndDownloadPDF('all');
-  };
 
   // Render markdown-like full description cleanly
   const renderFormattedDescription = (text: string) => {
@@ -154,55 +136,55 @@ export const ProgrammeDetailPage: React.FC<ProgrammeDetailPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] py-10 px-4 sm:px-6 lg:px-8 space-y-10">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Navigation Breadcrumb & Back Action */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
-            <button
-              onClick={() => onNavigate('home')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
-            >
-              Home
-            </button>
-            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+    <div className="min-h-screen bg-[#FBF9F5]">
+      {/* Full-width Hero Section (Not a card, edge-to-edge) */}
+      <section className="relative w-full overflow-hidden text-white bg-stone-950 py-16 sm:py-20 lg:py-24">
+        {/* Subtle Background Ambience using Programme Image */}
+        {programme.image && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <img 
+              src={programme.image} 
+              alt="" 
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover object-center filter brightness-[0.25] contrast-[1.1] scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/85 to-stone-950/60" />
+          </div>
+        )}
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Navigation Breadcrumb & Back Action */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs text-stone-300 font-medium">
+              <button
+                onClick={() => onNavigate('home')}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                Home
+              </button>
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <button
+                onClick={() => onNavigate('programmes')}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                Programmes
+              </button>
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <span className="text-white font-semibold truncate max-w-xs sm:max-w-md">
+                {programme.title}
+              </span>
+            </div>
+
             <button
               onClick={() => onNavigate('programmes')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-200 hover:text-white bg-white/10 hover:bg-white/20 px-3.5 py-1.5 rounded-lg border border-white/20 transition-colors cursor-pointer"
             >
-              Programmes
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>All Programmes Directory</span>
             </button>
-            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-            <span className="text-emerald-950 font-semibold truncate max-w-xs sm:max-w-md">
-              {programme.title}
-            </span>
           </div>
 
-          <button
-            onClick={() => onNavigate('programmes')}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-emerald-900 bg-white hover:bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200 shadow-2xs transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>All Programmes Directory</span>
-          </button>
-        </div>
-
-        {/* Hero Section */}
-        <div className="relative rounded-3xl overflow-hidden text-white shadow-2xl bg-stone-950 p-6 sm:p-10 lg:p-12">
-          {/* Subtle Background Ambience using Programme Image */}
-          {programme.image && (
-            <div className="absolute inset-0 z-0 pointer-events-none">
-              <img 
-                src={programme.image} 
-                alt="" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-center filter brightness-[0.25] contrast-[1.1] scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/85 to-stone-950/60" />
-            </div>
-          )}
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold">
@@ -228,41 +210,16 @@ export const ProgrammeDetailPage: React.FC<ProgrammeDetailPageProps> = ({
               <p className="text-emerald-100/95 text-sm sm:text-base leading-relaxed">
                 {programme.summary}
               </p>
-
-              <div className="pt-3 flex flex-wrap items-center gap-3">
-                <PillCtaButton
-                  onClick={() => onNavigate('get-involved')}
-                  label="Partner / Support This Programme"
-                  size="md"
-                />
-
-                <button
-                  onClick={handleDownloadPDF}
-                  className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold text-xs rounded-full transition-colors flex items-center gap-2 cursor-pointer shadow-2xs"
-                >
-                  <Download className="w-3.5 h-3.5 text-yellow-300" />
-                  <span>Official PDF Dossier</span>
-                </button>
-
-                <button
-                  onClick={handleShare}
-                  className="px-3 py-2.5 bg-white/5 hover:bg-white/15 text-stone-200 hover:text-white border border-white/15 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
-                  title="Copy Page Link"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
-                  <span>{copied ? 'Link Copied!' : 'Share'}</span>
-                </button>
-              </div>
             </div>
 
             {/* Featured Hero Image */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-stone-900 group aspect-4/3 max-h-80 sm:max-h-96">
+              <div className="relative rounded-none overflow-hidden bg-stone-900 group aspect-4/3 max-h-80 sm:max-h-96">
                 <img
                   src={programme.image || 'https://i.postimg.cc/GhC5NVNJ/Gemini-Generated-Image-8y9pg68y9pg68y9p.jpg'}
                   alt={programme.title}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-none"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs text-white">
@@ -278,6 +235,10 @@ export const ProgrammeDetailPage: React.FC<ProgrammeDetailPageProps> = ({
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Main Page Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
 
         {/* Content Layout: Main Article Column + Metadata Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

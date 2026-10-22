@@ -24,12 +24,14 @@ import { ProgrammesPage } from './pages/ProgrammesPage';
 import { StarterKitsPage } from './pages/StarterKitsPage';
 import { ProgrammeDetailPage } from './pages/ProgrammeDetailPage';
 import { ReintegrationPage } from './pages/ReintegrationPage';
+import { TestBeforeYouTreatPage } from './pages/TestBeforeYouTreatPage';
 import { ImpactPage } from './pages/ImpactPage';
 import { FactSheetPage } from './pages/FactSheetPage';
 import { GetInvolvedPage } from './pages/GetInvolvedPage';
 
 // Admin Store Access
 import { getAdminProgrammes, AdminProgramme } from './data/adminStore';
+import { initScrollReveal } from './utils/scrollReveal';
 
 export type PageId = 
   | 'home' 
@@ -43,6 +45,7 @@ export type PageId =
   | 'combat-center' 
   | 'programmes' 
   | 'starter-kits'
+  | 'test-before-you-treat'
   | 'programme-detail'
   | 'reintegration' 
   | 'impact' 
@@ -79,6 +82,16 @@ function parseRoute(hash: string): RouteParseResult {
   if (clean === 'starter-kits' || clean === 'starter-kit' || clean === 'agricultural-starter-kits' || clean === 'farmer-starter-kits' || clean === 'kits') {
     return { page: 'starter-kits' };
   }
+  if (
+    clean === 'test-before-you-treat' ||
+    clean === 'test-before-treat' ||
+    clean === 'testbeforeyoutreat' ||
+    clean === 'diagnostic-lab' ||
+    clean === 'lab' ||
+    clean === 'testing'
+  ) {
+    return { page: 'test-before-you-treat' };
+  }
 
   // Check for dynamic programme routes (e.g. #programme-prog-1 or #programme-prog-1712... or #programmes/...)
   if (clean.startsWith('programme-') || clean.startsWith('programmes/')) {
@@ -101,6 +114,7 @@ function parseRoute(hash: string): RouteParseResult {
     'combat-center',
     'programmes',
     'starter-kits',
+    'test-before-you-treat',
     'reintegration',
     'impact',
     'fact-sheet',
@@ -144,6 +158,12 @@ export default function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  // Initialize premium scroll-reveal observer across all pages
+  useEffect(() => {
+    const cleanup = initScrollReveal();
+    return cleanup;
+  }, [currentPage]);
 
   // Smooth page navigation helper
   const navigateTo = (target: string) => {
@@ -274,6 +294,13 @@ export default function App() {
 
             {currentPage === 'starter-kits' && (
               <StarterKitsPage
+                onNavigate={navigateTo}
+                onOpenDocModal={() => setShowDocModal(true)}
+              />
+            )}
+
+            {currentPage === 'test-before-you-treat' && (
+              <TestBeforeYouTreatPage
                 onNavigate={navigateTo}
                 onOpenDocModal={() => setShowDocModal(true)}
               />

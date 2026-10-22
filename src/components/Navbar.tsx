@@ -123,47 +123,25 @@ export const Navbar: React.FC<NavbarProps> = ({
       label: 'Agricultural Starter Kit System',
     },
     {
+      id: 'test-before-you-treat',
+      label: 'Test before you treat',
+    },
+    {
       id: 'reintegration',
       label: 'Prison Justice & Reintegration',
     },
   ];
 
-  const isProgrammesActive = ['programmes', 'starter-kits', 'reintegration'].includes(currentTab);
+  const isProgrammesActive = ['programmes', 'starter-kits', 'test-before-you-treat', 'reintegration'].includes(currentTab);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 font-sans ${
         viewMode === 'operations'
           ? 'bg-[#0D281A] border-b border-emerald-950/80 text-white'
-          : isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-stone-200/90 shadow-sm'
-          : 'bg-white/80 backdrop-blur-md border-b border-stone-200/60 shadow-xs'
+          : `bg-white border-b border-stone-200 ${isScrolled ? 'shadow-sm' : 'shadow-xs'}`
       }`}
     >
-      {/* Partnership Invitation Utility Ribbon */}
-      <div 
-        className={`py-1 sm:py-1.5 px-3 sm:px-8 border-b transition-colors duration-300 ${
-          viewMode === 'operations'
-            ? 'bg-black/40 backdrop-blur-sm text-stone-200 border-white/10'
-            : 'bg-stone-50/75 backdrop-blur-xs text-stone-600 border-stone-200/60'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-6 overflow-hidden">
-          {/* Partnership Message / Moving Ticker */}
-          <div 
-            className={`flex items-center gap-2 text-[11px] sm:text-xs font-medium min-w-0 flex-1 overflow-hidden relative ${
-              viewMode === 'operations' ? 'text-stone-200' : 'text-stone-600'
-            }`}
-          >
-            {/* Moving ticker: Right to Left animation */}
-            <div className="overflow-hidden relative w-full flex items-center">
-              <span className="animate-slide-left whitespace-nowrap">
-                Empowering rural Ugandan smallholders, widows, youth &amp; reformed citizens through sustainable agriculture.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
@@ -350,17 +328,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Fact Sheet</span>
             </button>
 
-            {/* Full CTA Button for Get Involved */}
+            {/* Full CTA Button for DONATE NOW */}
             <button
               onClick={() => handleNavClick('get-involved')}
-              className={`px-4.5 py-2 rounded-full font-semibold text-xs tracking-wide transition-all shadow-xs hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95 ${
+              className={`px-4.5 py-2 rounded-full font-bold text-xs tracking-wider transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95 ${
                 currentTab === 'get-involved'
-                  ? 'bg-[#0D281A] text-white ring-2 ring-emerald-600 ring-offset-2 ring-offset-white'
-                  : 'bg-[#164E33] hover:bg-[#0D281A] text-white hover:text-white'
+                  ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-500 ring-offset-2 ring-offset-white'
+                  : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
               }`}
             >
-              <span>Get Involved</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>DONATE NOW</span>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
             </button>
           </nav>
         ) : (
@@ -382,6 +360,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           )}
 
+          {/* Tablet Donate Button - Visible on tablet viewports directly in the top nav bar */}
+          {viewMode === 'public' && (
+            <button
+              onClick={() => handleNavClick('get-involved')}
+              className={`hidden sm:inline-flex lg:hidden px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer items-center gap-1.5 active:scale-95 ${
+                currentTab === 'get-involved'
+                  ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-500 ring-offset-2 ring-offset-white'
+                  : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
+              }`}
+            >
+              <span>DONATE NOW</span>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
+            </button>
+          )}
+
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -399,7 +392,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile & Tablet Drawer Menu - Clean Vertical Layout */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-stone-200 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain px-4 sm:px-6 py-4 animate-in slide-in-from-top-2 duration-200 text-stone-800">
+        <div className="lg:hidden bg-white border-b border-stone-200 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain px-4 sm:px-6 py-4 animate-in slide-in-from-top-2 duration-200 text-stone-800">
           <nav className="flex flex-col space-y-1.5">
             {/* 1. Home */}
             <button
@@ -533,18 +526,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Fact Sheet</span>
             </button>
 
-            {/* 7. Get Involved CTA Button */}
+            {/* 7. DONATE NOW CTA Button */}
             <div className="pt-2">
               <button
                 onClick={() => handleNavClick('get-involved')}
-                className={`w-full py-3.5 px-5 rounded-xl font-semibold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 shadow-xs active:scale-[0.99] ${
+                className={`w-full py-3.5 px-5 rounded-xl font-bold text-sm tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-[0.99] ${
                   currentTab === 'get-involved'
-                    ? 'bg-[#0D281A] text-white ring-2 ring-emerald-500'
-                    : 'bg-[#164E33] hover:bg-[#0D281A] text-white'
+                    ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-500'
+                    : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
                 }`}
               >
-                <span>Get Involved</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>DONATE NOW</span>
+                <ArrowRight className="w-4 h-4 text-stone-950" />
               </button>
             </div>
           </nav>

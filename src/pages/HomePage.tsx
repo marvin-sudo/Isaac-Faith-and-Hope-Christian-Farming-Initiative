@@ -8,6 +8,8 @@ import { PublicGallerySection } from '../components/PublicGallerySection';
 import { 
   CORE_PROGRAMMES
 } from '../data/organizationData';
+import vocationalImg from '../assets/images/vocational_skills_training_1790273232078.jpg';
+import prisonImg from '../assets/images/prison_reintegration_1790277940920.jpg';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -122,7 +124,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="flex flex-col md:flex-row-reverse items-center gap-8 lg:gap-16">
               <div className="w-full md:w-1/2 overflow-hidden rounded-none">
                 <img
-                  src="/src/assets/images/vocational_skills_training_1790273232078.jpg"
+                  src={vocationalImg}
                   alt="Vocational Skills Development"
                   className="w-full h-72 sm:h-88 md:h-96 lg:h-[420px] object-cover rounded-none"
                 />
@@ -149,7 +151,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full md:w-1/2 overflow-hidden rounded-none">
                 <img
-                  src="/src/assets/images/prison_reintegration_1790277940920.jpg"
+                  src={prisonImg}
                   alt="Prison Ministry & Reintegration"
                   className="w-full h-72 sm:h-88 md:h-96 lg:h-[420px] object-cover rounded-none"
                 />

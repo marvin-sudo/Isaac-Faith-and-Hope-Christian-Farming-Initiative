@@ -4,19 +4,14 @@ import {
   ChevronRight, 
   HeartHandshake, 
   CheckCircle2, 
-  Sprout, 
-  BookOpen, 
   Scale, 
   Heart, 
-  Send, 
   Sparkles, 
-  Clock, 
-  MapPin, 
-  ShieldCheck, 
-  ArrowRight,
-  HelpCircle
+  HelpCircle,
+  Sprout,
+  BookOpen,
+  Send
 } from 'lucide-react';
-import { PillCtaButton } from '../components/PillCtaButton';
 import savingsImg from '../assets/images/women_village_savings_1790277977734.jpg';
 
 interface VolunteersPageProps {
@@ -47,41 +42,41 @@ export const VolunteersPage: React.FC<VolunteersPageProps> = ({ onNavigate, onOp
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] py-10 px-4 sm:px-6 lg:px-8 space-y-12">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
-          <button 
-            onClick={() => onNavigate('home')} 
-            className="hover:text-emerald-800 transition-colors cursor-pointer"
-          >
-            Home
-          </button>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-          <button 
-            onClick={() => onNavigate('about')} 
-            className="hover:text-emerald-800 transition-colors cursor-pointer"
-          >
-            About Us
-          </button>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-          <span className="text-emerald-900 font-semibold">Volunteers</span>
+    <div className="min-h-screen bg-[#FBF9F5]">
+      {/* Full-width Hero Section (Not a card, edge-to-edge) */}
+      <section className="relative w-full overflow-hidden text-white bg-stone-950 py-16 sm:py-20 lg:py-24">
+        {/* Background Image & Scrim */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={savingsImg} 
+            alt="Community volunteers and women savings group in Uganda" 
+            className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.05]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/80 to-stone-950/40" />
+          <div className="absolute inset-0 bg-stone-950/20 backdrop-blur-[1px]" />
         </div>
 
-        {/* Hero Banner with Relevant Background Image */}
-        <div className="relative rounded-3xl overflow-hidden text-white shadow-2xl bg-stone-950 p-8 sm:p-12">
-          {/* Background Image & Scrim */}
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={savingsImg} 
-              alt="Community volunteers and women savings group in Uganda" 
-              className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.05]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/80 to-stone-950/40" />
-            <div className="absolute inset-0 bg-stone-950/20 backdrop-blur-[1px]" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-2 text-xs text-stone-300 font-medium">
+            <button 
+              onClick={() => onNavigate('home')} 
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Home
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+            <button 
+              onClick={() => onNavigate('about')} 
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              About Us
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+            <span className="text-white font-semibold">Volunteers</span>
           </div>
 
-          <div className="relative z-10 max-w-3xl space-y-4">
+          <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-stone-100 text-xs font-semibold backdrop-blur-md">
               <Users className="w-4 h-4 text-yellow-300" />
               <span>Community Mobilization &amp; Hands-On Service</span>
@@ -92,25 +87,12 @@ export const VolunteersPage: React.FC<VolunteersPageProps> = ({ onNavigate, onOp
             <p className="text-stone-200 text-sm sm:text-base leading-relaxed">
               Put your faith, skills, and compassion into action alongside rural smallholders, vulnerable youth, and reformed ex-prisoners across Uganda.
             </p>
-
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href="#apply-volunteer"
-                className="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
-              >
-                <span>Apply to Volunteer</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <button
-                onClick={() => onNavigate('get-involved')}
-                className="px-5 py-3 bg-white/15 hover:bg-white/25 text-white border border-white/20 font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
-              >
-                <span>Ways to Support</span>
-              </button>
-            </div>
           </div>
         </div>
+      </section>
 
+      {/* Main Page Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
         {/* 6 Core Volunteer Opportunities */}
         <div className="bg-white rounded-3xl p-6 sm:p-10 border border-stone-200 shadow-xs space-y-6">
           <div className="max-w-2xl space-y-2">
