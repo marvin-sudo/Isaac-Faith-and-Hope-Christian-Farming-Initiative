@@ -173,6 +173,10 @@ export const TransformationJourney: React.FC<TransformationJourneyProps> = ({ on
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-600">
+            <span className="w-2 h-2 rounded-full bg-orange-500" />
+            <span>Structured Path to Self-Reliance</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 tracking-tight">
             The Transformation Journey
           </h2>
@@ -336,7 +340,7 @@ export const TransformationJourney: React.FC<TransformationJourneyProps> = ({ on
                 <button
                   type="button"
                   onClick={() => onNavigate && onNavigate('reintegration')}
-                  className="w-full py-3 px-4 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 px-5 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg hover:shadow-orange-500/25 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
                   <span>Explore Reintegration Model</span>
                   <ArrowRight className="w-4 h-4" />

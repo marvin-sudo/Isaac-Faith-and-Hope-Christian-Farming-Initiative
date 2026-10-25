@@ -201,7 +201,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({ onNa
 
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full bg-white border border-stone-200 hover:border-emerald-600 hover:bg-emerald-50 text-stone-800 hover:text-emerald-950 shadow-xs transition-all cursor-pointer active:scale-95"
+              className="p-3 rounded-full bg-white border border-stone-200 hover:border-orange-500 hover:bg-orange-50 text-stone-800 hover:text-orange-950 shadow-xs transition-all cursor-pointer active:scale-95"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -209,7 +209,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({ onNa
 
             <button
               onClick={handleNext}
-              className="p-3 rounded-full bg-[#0D281A] hover:bg-[#164E33] text-white shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center"
+              className="p-3 rounded-full bg-[#0D281A] hover:bg-orange-600 text-white shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-4 h-4" />
@@ -223,7 +223,7 @@ export const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({ onNa
           <div className="h-1.5 w-full bg-stone-100 overflow-hidden">
             <div 
               key={`${currentIndex}-${isPaused}`}
-              className={`h-full bg-gradient-to-r from-emerald-600 to-yellow-400 ${
+              className={`h-full bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-400 ${
                 isPaused ? 'w-full opacity-60' : 'animate-progress-5s'
               }`}
             />

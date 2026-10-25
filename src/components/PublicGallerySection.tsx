@@ -64,7 +64,11 @@ export const PublicGallerySection: React.FC = () => {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FBF9F5] border-b border-stone-200">
       <div className="max-w-7xl mx-auto space-y-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-600">
+            <span className="w-2 h-2 rounded-full bg-orange-500" />
+            <span>Living Proof &amp; Field Evidence</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 tracking-tight">
             Media Gallery &amp; Living Proof
           </h2>
@@ -82,10 +86,10 @@ export const PublicGallerySection: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#0D281A] text-white shadow-md'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                    ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md'
+                    : 'bg-white text-stone-700 hover:bg-stone-100 hover:text-orange-600 border border-stone-200'
                 }`}
               >
                 {cat}

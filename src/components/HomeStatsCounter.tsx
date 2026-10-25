@@ -127,31 +127,40 @@ export const HomeStatsCounter: React.FC<HomeStatsCounterProps> = ({ onNavigate }
     <section 
       id="key-metrics"
       ref={containerRef}
-      className="relative bg-gradient-to-b from-stone-950 via-[#07170E] to-[#0A2014] text-white py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden z-20"
+      className="relative bg-gradient-to-b from-[#0e3523] via-[#092417] to-[#0b271a] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden z-20"
       aria-label="Annual Impacts and Key Metrics"
     >
       {/* Background Ambience & Subtle Gradients */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-emerald-900/25 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-amber-900/20 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(#164E33_1px,transparent_1px)] [background-size:24px_24px] opacity-20" />
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-emerald-800/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-orange-900/15 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(#297a55_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 space-y-8 sm:space-y-10">
+      <div className="max-w-7xl mx-auto relative z-10 space-y-10 sm:space-y-12">
         {/* Section Header */}
-        <div className="pb-4 border-b border-white/10">
+        <div className="pb-4 border-b border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-2 max-w-2xl">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white tracking-tight">
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
+              <span className="w-2 h-2 rounded-full bg-orange-500" />
+              <span>Verifiable Impact Outcomes</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-tight">
               Annual Transformation Impacts
             </h2>
-            <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
+            <p className="text-emerald-100/80 text-xs sm:text-sm leading-relaxed">
               Verifiable annual operational impacts guiding IFHCFI’s countrywide vocational apprenticeships, restorative justice, and community farming initiatives:
             </p>
           </div>
+
+          <div className="text-xs text-amber-300 font-mono flex items-center gap-2 self-start md:self-auto">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Click any figure to replay 5s animation</span>
+          </div>
         </div>
 
-        {/* Professional Borderless Figures - Strictly One Line on Desktop View */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10 pt-2 lg:pt-4">
+        {/* 4 Rounded Cards with Golden Numbers matching reference impact figures */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-2">
           {METRICS.map((metric, idx) => {
             const Icon = metric.icon;
             const currentCount = counts[idx];
@@ -161,27 +170,27 @@ export const HomeStatsCounter: React.FC<HomeStatsCounterProps> = ({ onNavigate }
               <div
                 key={metric.id}
                 onClick={runCountAnimation}
-                className="py-6 sm:py-4 lg:py-2 px-0 sm:px-6 lg:px-6 xl:px-8 first:sm:pl-0 last:sm:pr-0 flex flex-col justify-between space-y-4 group cursor-pointer"
+                className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-amber-400/50 rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-4 group cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
               >
                 {/* Category Header with Icon */}
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-yellow-400 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-4 h-4" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-2xl bg-amber-400/15 border border-amber-400/30 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:bg-amber-400 group-hover:text-stone-950 transition-all duration-300">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[11px] font-mono tracking-wider uppercase text-emerald-400 font-semibold">
+                    <span className="text-[11px] font-mono tracking-wider uppercase text-amber-300 font-bold">
                       {metric.category}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-stone-400">
+                  <span className="text-[11px] font-mono text-stone-400 font-semibold">
                     0{idx + 1}
                   </span>
                 </div>
 
-                {/* Prominent Counter Figures */}
+                {/* Prominent Golden Counter Figures */}
                 <div className="space-y-1">
                   <div className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-extrabold text-white tracking-tight tabular-nums flex items-baseline gap-1 whitespace-nowrap">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-400 drop-shadow-xs">
+                    <span className="text-yellow-400 drop-shadow-xs">
                       {formattedCount}
                     </span>
                     {metric.suffix && (
@@ -196,13 +205,13 @@ export const HomeStatsCounter: React.FC<HomeStatsCounterProps> = ({ onNavigate }
                 </div>
 
                 {/* Subtitle / Context description */}
-                <p className="text-xs text-stone-400 leading-relaxed font-light">
+                <p className="text-xs text-stone-300 leading-relaxed font-light">
                   {metric.subtitle}
                 </p>
 
                 {/* Verification Tag */}
-                <div className="pt-2 text-[11px] font-mono text-emerald-300/80 flex items-center gap-1.5 border-t border-white/5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <div className="pt-3 text-[11px] font-mono text-emerald-300/80 flex items-center gap-1.5 border-t border-white/10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                   <span>{metric.badgeText}</span>
                 </div>
               </div>
@@ -211,7 +220,7 @@ export const HomeStatsCounter: React.FC<HomeStatsCounterProps> = ({ onNavigate }
         </div>
 
         {/* Bottom Context Pill & Quick Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-3 text-xs text-stone-300 border-t border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 text-xs text-emerald-100/90 border-t border-white/10">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>Impact outputs independently verified under IFHCFI’s 4-Tier Community Monitoring Standard.</span>
@@ -221,10 +230,10 @@ export const HomeStatsCounter: React.FC<HomeStatsCounterProps> = ({ onNavigate }
               <button
                 type="button"
                 onClick={() => onNavigate('impact')}
-                className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors cursor-pointer flex items-center gap-1.5"
+                className="text-amber-400 hover:text-amber-300 font-bold transition-colors cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm"
               >
                 <span>Explore Documented Impacts</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}

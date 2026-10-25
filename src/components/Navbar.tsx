@@ -5,7 +5,15 @@ import {
   Menu, 
   X, 
   ChevronDown, 
-  ArrowRight
+  ArrowRight,
+  Mail,
+  MapPin,
+  Heart,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Linkedin
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -136,257 +144,347 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 font-sans ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans ${
         viewMode === 'operations'
           ? 'bg-[#0D281A] border-b border-emerald-950/80 text-white'
-          : `bg-white border-b border-stone-200 ${isScrolled ? 'shadow-sm' : 'shadow-xs'}`
+          : isScrolled
+          ? 'bg-[#0B251A]/95 backdrop-blur-md shadow-md py-1'
+          : 'bg-[#0B251A] py-1.5'
       }`}
     >
-
-      {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
-        {/* Brand Logo - 3 consecutive clicks access the staff/admin sign-in page */}
-        <div className="flex items-center">
-          <a
-            href="#home"
-            onClick={handleLogoClick}
-            className="flex items-center group cursor-pointer py-0.5 select-none"
-            aria-label="Home"
-            title="IFHCFI Homepage"
-          >
-            <img
-              src="https://i.postimg.cc/LXQmgcGV/ifhcfi-modern-logo-hand-defined-(1).png"
-              alt="Isaac Faith and Hope Christian Farming Initiative"
-              referrerPolicy="no-referrer"
-              className="h-12 sm:h-14 md:h-15 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 active:scale-95 drop-shadow-xs"
-            />
-          </a>
-        </div>
-
-        {/* Desktop Navigation Links */}
-        {viewMode === 'public' ? (
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-medium text-stone-700">
-            {/* Home */}
-            <button
-              onClick={() => handleNavClick('home')}
-              className={`transition-all whitespace-nowrap cursor-pointer py-1 ${
-                currentTab === 'home'
-                  ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                  : 'text-stone-700 hover:text-emerald-800'
-              }`}
-            >
-              Home
-            </button>
-
-            {/* About Us Dropdown */}
-            <div 
-              ref={aboutDropdownRef}
-              className="relative"
-              onMouseEnter={() => setAboutDropdownOpen(true)}
-              onMouseLeave={() => setAboutDropdownOpen(false)}
-            >
-              <button
-                onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
-                className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer py-1 ${
-                  isAboutActive
-                    ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                    : 'text-stone-700 hover:text-emerald-800'
-                }`}
-                aria-expanded={aboutDropdownOpen}
-                aria-haspopup="true"
-              >
-                <span>About Us</span>
-                <ChevronDown 
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    aboutDropdownOpen ? 'rotate-180 text-emerald-800' : 'text-stone-500'
-                  }`} 
-                />
-              </button>
-
-              {/* Dropdown Menu Panel - Clean Vertical Styling */}
-              {aboutDropdownOpen && (
-                <div 
-                  className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                  role="menu"
-                  aria-label="About Us"
-                >
-                  <div className="w-64 bg-white border border-stone-200/90 rounded-2xl shadow-xl p-1.5 space-y-0.5">
-                    {aboutSubItems.map((subItem) => {
-                      const isItemActive = currentTab === subItem.id;
-                      return (
-                        <button
-                          key={subItem.id}
-                          role="menuitem"
-                          onClick={() => handleNavClick(subItem.id)}
-                          className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between text-xs ${
-                            isItemActive 
-                              ? 'bg-emerald-50 text-emerald-950 font-bold' 
-                              : 'hover:bg-stone-50 text-stone-700 hover:text-emerald-900'
-                          }`}
-                        >
-                          <span className={`transition-colors ${isItemActive ? 'text-emerald-950 font-bold' : 'text-stone-800'}`}>
-                            {subItem.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+      {/* 
+        Top Slim Utility Strip (Reference Design Header Top Bar)
+      */}
+      {viewMode === 'public' && (
+        <div className="hidden sm:block border-b border-emerald-950/70 text-[12px] text-stone-300 px-4 sm:px-8 py-1">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-5">
+              <span className="flex items-center gap-1.5 text-emerald-300/90">
+                <MapPin className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                <span>Wakiso District, Uganda</span>
+              </span>
+              <span className="flex items-center gap-1.5 text-stone-300">
+                <Mail className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                <span>contact@ifhcfi.org</span>
+              </span>
+              <span className="hidden lg:inline text-stone-400 font-mono text-[11px]">
+                Permit: INDP0007369NB • NGO Reg: MIA/NB/2026/03/7369
+              </span>
             </div>
 
-            {/* Programmes Dropdown */}
-            <div 
-              ref={dropdownRef}
-              className="relative"
-              onMouseEnter={() => setProgrammesDropdownOpen(true)}
-              onMouseLeave={() => setProgrammesDropdownOpen(false)}
-            >
-              <button
-                onClick={() => setProgrammesDropdownOpen(!programmesDropdownOpen)}
-                className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer py-1 ${
-                  isProgrammesActive
-                    ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                    : 'text-stone-700 hover:text-emerald-800'
-                }`}
-                aria-expanded={programmesDropdownOpen}
-                aria-haspopup="true"
-              >
-                <span>Programmes</span>
-                <ChevronDown 
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    programmesDropdownOpen ? 'rotate-180 text-emerald-800' : 'text-stone-500'
-                  }`} 
-                />
-              </button>
-
-              {/* Dropdown Menu Panel - Clean Vertical Styling */}
-              {programmesDropdownOpen && (
-                <div 
-                  className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                  role="menu"
-                  aria-label="Programmes and Facilities"
+            <div className="flex items-center gap-3">
+              <span className="text-stone-400 text-[11px]">Follow us:</span>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="text-stone-300 hover:text-orange-400 transition-colors"
                 >
-                  <div className="w-68 bg-white border border-stone-200/90 rounded-2xl shadow-xl p-1.5 space-y-0.5">
-                    {programmeSubItems.map((subItem) => {
-                      const isItemActive = currentTab === subItem.id;
-                      return (
-                        <button
-                          key={subItem.id}
-                          role="menuitem"
-                          onClick={() => handleNavClick(subItem.id)}
-                          className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between text-xs ${
-                            isItemActive 
-                              ? 'bg-emerald-50 text-emerald-950 font-bold' 
-                              : 'hover:bg-stone-50 text-stone-700 hover:text-emerald-900'
-                          }`}
-                        >
-                          <span className={`transition-colors ${isItemActive ? 'text-emerald-950 font-bold' : 'text-stone-800'}`}>
-                            {subItem.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+                  <Facebook className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter / X"
+                  className="text-stone-300 hover:text-orange-400 transition-colors"
+                >
+                  <Twitter className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="text-stone-300 hover:text-orange-400 transition-colors"
+                >
+                  <Instagram className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="text-stone-300 hover:text-orange-400 transition-colors"
+                >
+                  <Youtube className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-stone-300 hover:text-orange-400 transition-colors"
+                >
+                  <Linkedin className="w-3 h-3" />
+                </a>
+              </div>
             </div>
-
-            {/* Dedicated ACE Hub Nav Item */}
-            <button
-              onClick={() => handleNavClick('ace-hub')}
-              className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer py-1 ${
-                isAceHubActive
-                  ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                  : 'text-stone-700 hover:text-emerald-800'
-              }`}
-            >
-              <span>ACE Hub</span>
-            </button>
-
-            {/* Impact */}
-            <button
-              onClick={() => handleNavClick('impact')}
-              className={`transition-all whitespace-nowrap cursor-pointer py-1 ${
-                currentTab === 'impact'
-                  ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                  : 'text-stone-700 hover:text-emerald-800'
-              }`}
-            >
-              Impact
-            </button>
-
-            {/* Fact Sheet */}
-            <button
-              onClick={() => handleNavClick('fact-sheet')}
-              className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer py-1 ${
-                currentTab === 'fact-sheet'
-                  ? 'text-emerald-800 font-bold underline underline-offset-8 decoration-emerald-700 decoration-2'
-                  : 'text-stone-700 hover:text-emerald-800'
-              }`}
-            >
-              <span>Fact Sheet</span>
-            </button>
-
-            {/* Full CTA Button for DONATE NOW */}
-            <button
-              onClick={() => handleNavClick('get-involved')}
-              className={`px-4.5 py-2 rounded-full font-bold text-xs tracking-wider transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95 ${
-                currentTab === 'get-involved'
-                  ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-500 ring-offset-2 ring-offset-white'
-                  : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
-              }`}
-            >
-              <span>DONATE NOW</span>
-              <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
-            </button>
-          </nav>
-        ) : (
-          <div className="flex items-center gap-2 text-sm font-semibold text-emerald-400">
-            <Layers className="w-4 h-4" />
-            <span>Digital Operations &amp; Beneficiary Workspace</span>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Mobile Toggle & Exit if in operations mode */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {viewMode === 'operations' && (
-            <button
-              onClick={() => setViewMode('public')}
-              className="px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-900 text-white border border-emerald-700 cursor-pointer flex items-center gap-1.5 hover:bg-emerald-800"
+      {/* 
+        Main Navigation Bar:
+        Vibrant Warm Orange Pill Navigation Container matching Reference Screenshot
+      */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-1">
+        <div
+          className={`transition-all duration-300 ${
+            viewMode === 'operations'
+              ? 'flex items-center justify-between py-2 px-4 bg-emerald-950/60 rounded-xl'
+              : 'bg-gradient-to-r from-[#ea580c] via-[#f05a22] to-[#f97316] text-white shadow-lg shadow-orange-950/20 rounded-2xl lg:rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3'
+          }`}
+        >
+          {/* Brand Logo - 3 consecutive clicks access the staff/admin sign-in page */}
+          <div className="flex items-center shrink-0">
+            <a
+              href="#home"
+              onClick={handleLogoClick}
+              className="flex items-center group cursor-pointer select-none py-0.5"
+              aria-label="Home"
+              title="IFHCFI Homepage"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Exit to Public Site</span>
-            </button>
+              <div className="bg-white/95 px-3 py-1 rounded-full shadow-xs flex items-center group-hover:bg-white transition-all">
+                <img
+                  src="https://i.postimg.cc/LXQmgcGV/ifhcfi-modern-logo-hand-defined-(1).png"
+                  alt="Isaac Faith and Hope Christian Farming Initiative"
+                  referrerPolicy="no-referrer"
+                  className="h-9 sm:h-11 w-auto max-w-[180px] sm:max-w-[220px] object-contain transition-transform group-hover:scale-105 active:scale-95"
+                />
+              </div>
+            </a>
+          </div>
+
+          {/* 
+            Desktop Navigation Links:
+            Font size noticeably increased to text-sm lg:text-[15px] font-semibold text-white
+            for high clarity and visibility on desktop site
+          */}
+          {viewMode === 'public' ? (
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm xl:text-[15px] font-semibold text-white tracking-wide">
+              {/* Home */}
+              <button
+                onClick={() => handleNavClick('home')}
+                className={`transition-all whitespace-nowrap cursor-pointer px-3 py-1.5 rounded-full ${
+                  currentTab === 'home'
+                    ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                    : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                }`}
+              >
+                Home
+              </button>
+
+              {/* About Us Dropdown */}
+              <div 
+                ref={aboutDropdownRef}
+                className="relative"
+                onMouseEnter={() => setAboutDropdownOpen(true)}
+                onMouseLeave={() => setAboutDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
+                  className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full ${
+                    isAboutActive
+                      ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                      : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                  }`}
+                  aria-expanded={aboutDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <span>About Us</span>
+                  <ChevronDown 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      aboutDropdownOpen ? 'rotate-180 text-amber-200' : 'text-white/80'
+                    }`} 
+                  />
+                </button>
+
+                {/* Dropdown Menu Panel - Clean Vertical Styling */}
+                {aboutDropdownOpen && (
+                  <div 
+                    className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                    role="menu"
+                    aria-label="About Us"
+                  >
+                    <div className="w-68 bg-white border border-stone-200 rounded-2xl shadow-2xl p-2 space-y-1 text-stone-800">
+                      {aboutSubItems.map((subItem) => {
+                        const isItemActive = currentTab === subItem.id;
+                        return (
+                          <button
+                            key={subItem.id}
+                            role="menuitem"
+                            onClick={() => handleNavClick(subItem.id)}
+                            className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between text-xs sm:text-sm ${
+                              isItemActive 
+                                ? 'bg-orange-50 text-orange-950 font-bold border-l-3 border-orange-600' 
+                                : 'hover:bg-stone-50 text-stone-700 hover:text-orange-700'
+                            }`}
+                          >
+                            <span>{subItem.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Programmes Dropdown */}
+              <div 
+                ref={dropdownRef}
+                className="relative"
+                onMouseEnter={() => setProgrammesDropdownOpen(true)}
+                onMouseLeave={() => setProgrammesDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => setProgrammesDropdownOpen(!programmesDropdownOpen)}
+                  className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full ${
+                    isProgrammesActive
+                      ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                      : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                  }`}
+                  aria-expanded={programmesDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <span>Programmes</span>
+                  <ChevronDown 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      programmesDropdownOpen ? 'rotate-180 text-amber-200' : 'text-white/80'
+                    }`} 
+                  />
+                </button>
+
+                {/* Dropdown Menu Panel - Clean Vertical Styling */}
+                {programmesDropdownOpen && (
+                  <div 
+                    className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                    role="menu"
+                    aria-label="Programmes and Facilities"
+                  >
+                    <div className="w-72 bg-white border border-stone-200 rounded-2xl shadow-2xl p-2 space-y-1 text-stone-800">
+                      {programmeSubItems.map((subItem) => {
+                        const isItemActive = currentTab === subItem.id;
+                        return (
+                          <button
+                            key={subItem.id}
+                            role="menuitem"
+                            onClick={() => handleNavClick(subItem.id)}
+                            className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between text-xs sm:text-sm ${
+                              isItemActive 
+                                ? 'bg-orange-50 text-orange-950 font-bold border-l-3 border-orange-600' 
+                                : 'hover:bg-stone-50 text-stone-700 hover:text-orange-700'
+                            }`}
+                          >
+                            <span>{subItem.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Dedicated ACE Hub Nav Item */}
+              <button
+                onClick={() => handleNavClick('ace-hub')}
+                className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full ${
+                  isAceHubActive
+                    ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                    : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                }`}
+              >
+                <span>ACE Hub</span>
+              </button>
+
+              {/* Impact */}
+              <button
+                onClick={() => handleNavClick('impact')}
+                className={`transition-all whitespace-nowrap cursor-pointer px-3 py-1.5 rounded-full ${
+                  currentTab === 'impact'
+                    ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                    : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                }`}
+              >
+                Impact
+              </button>
+
+              {/* Fact Sheet */}
+              <button
+                onClick={() => handleNavClick('fact-sheet')}
+                className={`transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-full ${
+                  currentTab === 'fact-sheet'
+                    ? 'bg-white/25 text-white font-bold shadow-inner ring-1 ring-white/30'
+                    : 'text-white/90 hover:text-amber-200 hover:bg-white/10'
+                }`}
+              >
+                <span>Fact Sheet</span>
+              </button>
+
+              {/* Full High-Contrast Pill CTA Button for DONATE NOW */}
+              <button
+                onClick={() => handleNavClick('get-involved')}
+                className={`px-5 py-2.5 rounded-full font-bold text-xs lg:text-sm tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center gap-1.5 active:scale-95 ${
+                  currentTab === 'get-involved'
+                    ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-400 ring-offset-2 ring-offset-orange-600'
+                    : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
+                }`}
+              >
+                <Heart className="w-3.5 h-3.5 fill-current text-stone-950" />
+                <span>DONATE NOW</span>
+                <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
+              </button>
+            </nav>
+          ) : (
+            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-400">
+              <Layers className="w-4 h-4" />
+              <span>Digital Operations &amp; Beneficiary Workspace</span>
+            </div>
           )}
 
-          {/* Tablet Donate Button - Visible on tablet viewports directly in the top nav bar */}
-          {viewMode === 'public' && (
+          {/* Right Action Cluster: Tablet Donate Button + Mobile Hamburger */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {viewMode === 'operations' && (
+              <button
+                onClick={() => setViewMode('public')}
+                className="px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-900 text-white border border-emerald-700 cursor-pointer flex items-center gap-1.5 hover:bg-emerald-800"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>Exit to Public Site</span>
+              </button>
+            )}
+
+            {/* Tablet Donate Button - Visible on tablet viewports directly in the top nav bar as requested */}
+            {viewMode === 'public' && (
+              <button
+                onClick={() => handleNavClick('get-involved')}
+                className={`hidden sm:inline-flex lg:hidden px-4 py-2 rounded-full font-bold text-xs tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer items-center gap-1.5 active:scale-95 ${
+                  currentTab === 'get-involved'
+                    ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-400'
+                    : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
+                }`}
+              >
+                <Heart className="w-3.5 h-3.5 fill-current text-stone-950" />
+                <span>DONATE NOW</span>
+                <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
+              </button>
+            )}
+
+            {/* Mobile Hamburger Toggle Button */}
             <button
-              onClick={() => handleNavClick('get-involved')}
-              className={`hidden sm:inline-flex lg:hidden px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer items-center gap-1.5 active:scale-95 ${
-                currentTab === 'get-involved'
-                  ? 'bg-yellow-400 text-stone-950 ring-2 ring-yellow-500 ring-offset-2 ring-offset-white'
-                  : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`lg:hidden p-2 rounded-xl cursor-pointer transition-colors ${
+                viewMode === 'operations'
+                  ? 'text-white bg-emerald-900/80 border border-emerald-700'
+                  : 'text-white hover:text-amber-200 bg-white/20 hover:bg-white/30 border border-white/30'
               }`}
+              aria-label="Toggle Navigation Menu"
             >
-              <span>DONATE NOW</span>
-              <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-          )}
-
-          {/* Mobile Hamburger Toggle Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-xl border cursor-pointer transition-colors ${
-              viewMode === 'operations'
-                ? 'text-white bg-emerald-900/80 border-emerald-700'
-                : 'text-stone-800 hover:text-emerald-900 bg-stone-100/90 hover:bg-stone-200/90 border-stone-200'
-            }`}
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          </div>
         </div>
       </div>
 
@@ -399,8 +497,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavClick('home')}
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                 currentTab === 'home'
-                  ? 'bg-emerald-900 text-white font-bold shadow-xs'
-                  : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                  ? 'bg-orange-600 text-white font-bold shadow-xs'
+                  : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
               }`}
             >
               <span>Home</span>
@@ -413,21 +511,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setMobileAboutExpanded(!mobileAboutExpanded)}
                 className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                   isAboutActive && !mobileAboutExpanded
-                    ? 'bg-emerald-50 text-emerald-900 font-bold'
-                    : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                    ? 'bg-orange-50 text-orange-900 font-bold'
+                    : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
                 }`}
                 aria-expanded={mobileAboutExpanded}
               >
                 <span>About Us</span>
                 <ChevronDown
                   className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
-                    mobileAboutExpanded ? 'rotate-180 text-emerald-800' : ''
+                    mobileAboutExpanded ? 'rotate-180 text-orange-600' : ''
                   }`}
                 />
               </button>
 
               {mobileAboutExpanded && (
-                <div className="pl-4 pr-1 py-1 space-y-1 bg-stone-50/80 rounded-xl my-1 border-l-2 border-emerald-600 animate-in fade-in duration-150">
+                <div className="pl-4 pr-1 py-1 space-y-1 bg-stone-50/80 rounded-xl my-1 border-l-2 border-orange-500 animate-in fade-in duration-150">
                   {aboutSubItems.map((subItem) => {
                     const isItemActive = currentTab === subItem.id;
                     return (
@@ -436,8 +534,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onClick={() => handleNavClick(subItem.id)}
                         className={`w-full text-left px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors cursor-pointer flex items-center justify-between ${
                           isItemActive
-                            ? 'text-emerald-900 font-bold bg-emerald-100/70'
-                            : 'text-stone-700 hover:text-emerald-900 hover:bg-stone-100'
+                            ? 'text-orange-950 font-bold bg-orange-100/70'
+                            : 'text-stone-700 hover:text-orange-700 hover:bg-stone-100'
                         }`}
                       >
                         <span>{subItem.label}</span>
@@ -455,21 +553,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setMobileProgrammesExpanded(!mobileProgrammesExpanded)}
                 className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                   isProgrammesActive && !mobileProgrammesExpanded
-                    ? 'bg-emerald-50 text-emerald-900 font-bold'
-                    : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                    ? 'bg-orange-50 text-orange-900 font-bold'
+                    : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
                 }`}
                 aria-expanded={mobileProgrammesExpanded}
               >
                 <span>Programmes</span>
                 <ChevronDown
                   className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
-                    mobileProgrammesExpanded ? 'rotate-180 text-emerald-800' : ''
+                    mobileProgrammesExpanded ? 'rotate-180 text-orange-600' : ''
                   }`}
                 />
               </button>
 
               {mobileProgrammesExpanded && (
-                <div className="pl-4 pr-1 py-1 space-y-1 bg-stone-50/80 rounded-xl my-1 border-l-2 border-emerald-600 animate-in fade-in duration-150">
+                <div className="pl-4 pr-1 py-1 space-y-1 bg-stone-50/80 rounded-xl my-1 border-l-2 border-orange-500 animate-in fade-in duration-150">
                   {programmeSubItems.map((subItem) => {
                     const isItemActive = currentTab === subItem.id;
                     return (
@@ -478,8 +576,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onClick={() => handleNavClick(subItem.id)}
                         className={`w-full text-left px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors cursor-pointer flex items-center justify-between ${
                           isItemActive
-                            ? 'text-emerald-900 font-bold bg-emerald-100/70'
-                            : 'text-stone-700 hover:text-emerald-900 hover:bg-stone-100'
+                            ? 'text-orange-950 font-bold bg-orange-100/70'
+                            : 'text-stone-700 hover:text-orange-700 hover:bg-stone-100'
                         }`}
                       >
                         <span>{subItem.label}</span>
@@ -495,8 +593,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavClick('ace-hub')}
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                 isAceHubActive
-                  ? 'bg-emerald-900 text-white font-bold shadow-xs'
-                  : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                  ? 'bg-orange-600 text-white font-bold shadow-xs'
+                  : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
               }`}
             >
               <span>ACE Hub</span>
@@ -507,8 +605,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavClick('impact')}
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                 currentTab === 'impact'
-                  ? 'bg-emerald-900 text-white font-bold shadow-xs'
-                  : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                  ? 'bg-orange-600 text-white font-bold shadow-xs'
+                  : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
               }`}
             >
               <span>Impact</span>
@@ -519,8 +617,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => handleNavClick('fact-sheet')}
               className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                 currentTab === 'fact-sheet'
-                  ? 'bg-emerald-900 text-white font-bold shadow-xs'
-                  : 'text-stone-800 hover:bg-stone-100 hover:text-emerald-900'
+                  ? 'bg-orange-600 text-white font-bold shadow-xs'
+                  : 'text-stone-800 hover:bg-stone-100 hover:text-orange-600'
               }`}
             >
               <span>Fact Sheet</span>
@@ -536,6 +634,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'bg-yellow-400 hover:bg-yellow-300 text-stone-950'
                 }`}
               >
+                <Heart className="w-4 h-4 fill-current text-stone-950" />
                 <span>DONATE NOW</span>
                 <ArrowRight className="w-4 h-4 text-stone-950" />
               </button>
@@ -567,4 +666,3 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
-

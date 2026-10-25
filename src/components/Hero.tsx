@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Sprout, Wheat, Leaf, SunMedium } from 'lucide-react';
+import { ChevronDown, Sprout, Wheat, Leaf, SunMedium, Heart, ArrowRight } from 'lucide-react';
 import heroImg from '../assets/images/hero_ugandan_farming_1790193085963.jpg';
 import domeImg from '../assets/images/dome_farm_greenhouse_1790193096683.jpg';
 import livestockImg from '../assets/images/livestock_husbandry_unit_1790193113014.jpg';
@@ -21,7 +21,6 @@ interface SlideItem {
   title: string;
   subtitle: string;
   location: string;
-  // Left-side dynamic text fields corresponding to the background image
   headingPrefix: string;
   headingKeyword: string;
   headingSuffix: string;
@@ -127,7 +126,6 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Autonomous, continuous slideshow timer - transitions smoothly in sync with text
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
@@ -137,179 +135,226 @@ export const Hero: React.FC<HeroProps> = ({
   }, []);
 
   const activeSlide = SLIDES[currentSlide];
+  const secondarySlide = SLIDES[(currentSlide + 1) % SLIDES.length];
 
   return (
     <section 
-      className="relative overflow-hidden pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28 text-white min-h-[92vh] lg:min-h-[95vh] flex items-center justify-center bg-stone-950"
+      className="relative overflow-hidden pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 text-white min-h-[92vh] lg:min-h-[95vh] flex items-center justify-center bg-[#0e3523]"
       aria-roledescription="carousel"
       aria-label="IFHCFI Visual Project Showcase Slideshow"
     >
       {/* 
         ========================================================================
-        1. VISUAL IMAGE SLIDESHOW (Auto-play loop with smooth 1500ms cross-fade & Ken Burns zoom)
+        1. RELEVANT BACKGROUND PICTURE WITH LOW TRANSPARENCY
+        Photographic background of Ugandan agriculture with subtle dark green overlay
         ========================================================================
       */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black select-none">
-        {SLIDES.map((slide, index) => {
-          const isActive = index === currentSlide;
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+        {SLIDES.map((slide, index) => (
+          <img
+            key={`bg-${slide.id}`}
+            src={slide.image}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out hero-kenburns-image ${
+              index === currentSlide ? 'opacity-20 is-active' : 'opacity-0 is-inactive'
+            }`}
+          />
+        ))}
 
-          return (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1500 ease-in-out ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-              }`}
-              aria-hidden={!isActive}
-            >
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                referrerPolicy="no-referrer"
-                className={`w-full h-full object-cover object-center hero-kenburns-image ${
-                  isActive ? 'is-active' : 'is-inactive'
-                }`}
-              />
-            </div>
-          );
-        })}
+        {/* Deep forest green gradient overlays ensuring high-contrast text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0e3523]/95 via-[#0e3523]/85 to-[#0e3523]/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e3523] via-transparent to-[#0e3523]/90" />
 
-        {/* 
-          ========================================================================
-          2. BALANCED OVERLAYS: Center-focused scrim allowing images to shine while keeping text legible
-          ========================================================================
-        */}
-        <div 
-          className="absolute inset-0 z-15 pointer-events-none bg-stone-950/70"
-          aria-hidden="true"
-        />
-
-        {/* Subtle top & bottom edge blend for uninterrupted header and footer integration */}
-        <div 
-          className="absolute inset-x-0 top-0 h-32 z-15 pointer-events-none bg-gradient-to-b from-stone-950/90 to-transparent" 
-          aria-hidden="true"
-        />
-        <div 
-          className="absolute inset-x-0 bottom-0 h-32 z-15 pointer-events-none bg-gradient-to-t from-stone-950 to-transparent" 
-          aria-hidden="true"
-        />
+        {/* Decorative organic curved shapes from reference design */}
+        <div className="absolute -top-32 -left-48 w-[580px] sm:w-[720px] h-[580px] sm:h-[720px] rounded-full bg-[#154631] opacity-60 blur-xs" />
+        <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] rounded-full bg-[#1b533b] opacity-35 blur-xl" />
+        <div className="absolute bottom-[-150px] right-[-100px] w-[500px] h-[500px] rounded-full bg-[#123e2b] opacity-50" />
+        {/* Subtle radial dot grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(#297a55_1px,transparent_1px)] [background-size:28px_28px] opacity-15" />
       </div>
 
       {/* 
         ========================================================================
-        3. CENTER-ALIGNED HERO CONTENT
+        2. HERO CONTENT GRID: 2-Column Responsive Layout Matching Reference
         ========================================================================
       */}
-      <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-8 w-full text-center">
-        <div className="flex flex-col items-center justify-center space-y-6">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* 
-            DYNAMIC TEXT BLOCK:
-            Keyed to currentSlide so that text smoothly transitions in unison with background images
-          */}
-          <div 
-            key={currentSlide}
-            className="space-y-4 max-w-3xl mx-auto text-center"
-          >
-            {/* Dominant Main Heading with Strong Visual Hierarchy & Bold Gold Keyword Accent */}
-            <h1 className="animate-hero-headline text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-white leading-[1.18] tracking-tight [text-wrap:balance] text-center">
-              {activeSlide.headingPrefix}
-              <span className="font-extrabold text-yellow-400">
-                {activeSlide.headingKeyword}
-              </span>
-              {activeSlide.headingSuffix}
-            </h1>
+          {/* ======================================================== */}
+          {/* LEFT COLUMN: Narrative & Headline & Action Buttons      */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            
+            {/* Kicker Badge: Reference Style with Warm Dot */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#184834] border border-[#2d7353]/60 text-amber-300 text-xs sm:text-sm font-semibold shadow-inner">
+              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+              <span>Give a Helping Hand • {activeSlide.tag}</span>
+            </div>
 
-            {/* Concise, Powerful Copy with Warm Highlights */}
-            <p className="animate-hero-subtext text-sm sm:text-base lg:text-lg text-stone-200 leading-relaxed font-light max-w-2xl mx-auto text-center">
-              {activeSlide.narrativeLead}
-              <strong className="font-bold text-yellow-300">
-                {activeSlide.narrativeKeyword1}
-              </strong>
-              {activeSlide.narrativeMid}
-              <strong className="font-bold text-yellow-300">
-                {activeSlide.narrativeKeyword2}
-              </strong>
-              {activeSlide.narrativeClose}
-            </p>
-          </div>
+            {/* Dominant Main Heading with Strong Hierarchy & Yellow Keyword Accent */}
+            <div key={currentSlide} className="space-y-4">
+              <h1 className="animate-hero-headline text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-[1.14] tracking-tight [text-wrap:balance]">
+                {activeSlide.headingPrefix}
+                <span className="font-extrabold text-yellow-400">
+                  {activeSlide.headingKeyword}
+                </span>
+                {activeSlide.headingSuffix}
+              </h1>
 
-          {/* Action Buttons: Primary & Secondary centered */}
-          <div className="animate-hero-actions flex flex-wrap items-center justify-center gap-3 pt-2">
-            {/* Primary 1: DONATE NOW */}
-            <button
-              type="button"
-              onClick={onOpenDonateModal}
-              className="btn-micro px-5 py-3 rounded-full bg-yellow-400 hover:bg-yellow-300 text-stone-950 font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:shadow-yellow-400/20 transition-all cursor-pointer flex items-center gap-2"
-            >
-              <Sprout className="w-4 h-4 text-stone-950" />
-              <span>DONATE NOW</span>
-            </button>
+              {/* Concise, Powerful Copy with Warm Highlights */}
+              <p className="animate-hero-subtext text-sm sm:text-base lg:text-lg text-emerald-100/90 leading-relaxed font-light max-w-2xl">
+                {activeSlide.narrativeLead}
+                <strong className="font-bold text-yellow-300">
+                  {activeSlide.narrativeKeyword1}
+                </strong>
+                {activeSlide.narrativeMid}
+                <strong className="font-bold text-yellow-300">
+                  {activeSlide.narrativeKeyword2}
+                </strong>
+                {activeSlide.narrativeClose}
+              </p>
+            </div>
 
-            {/* Primary 2: Explore Our Programmes */}
-            <button
-              type="button"
-              onClick={() => {
-                if (onNavigate) onNavigate('programmes');
-                else onExploreProject();
-              }}
-              className="btn-micro px-5 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm tracking-wide border border-white/25 shadow-md hover:shadow-white/10 transition-all cursor-pointer flex items-center gap-2"
-            >
-              <Wheat className="w-4 h-4 text-emerald-300" />
-              <span>Explore Our Programmes</span>
-            </button>
-
-            {/* Secondary 1: Our Story */}
-            <button
-              type="button"
-              onClick={() => {
-                if (onNavigate) onNavigate('about');
-                else onOpenDocModal();
-              }}
-              className="btn-micro px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
-            >
-              <Leaf className="w-3.5 h-3.5 text-yellow-300" />
-              <span>Our Story</span>
-            </button>
-
-            {/* Secondary 2: Volunteer With Us */}
-            <button
-              type="button"
-              onClick={() => {
-                if (onNavigate) onNavigate('volunteers');
-              }}
-              className="btn-micro px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
-            >
-              <SunMedium className="w-3.5 h-3.5 text-amber-300" />
-              <span>Volunteer With Us</span>
-            </button>
-          </div>
-
-          {/* Slide dots centered */}
-          <div className="flex items-center justify-center gap-2 pt-4">
-            {SLIDES.map((slide, index) => (
+            {/* Action Buttons: Primary Orange & Secondary Frosted Pills */}
+            <div className="animate-hero-actions flex flex-wrap items-center gap-3 pt-2">
+              {/* Primary 1: DONATE NOW (Reference Vibrant Orange Button) */}
               <button
-                key={slide.id}
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`Jump to slide ${index + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  index === currentSlide ? 'w-8 bg-yellow-400' : 'w-2 bg-white/40 hover:bg-white/70'
-                }`}
-              />
-            ))}
+                type="button"
+                onClick={onOpenDonateModal}
+                className="px-6 py-3.5 rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-orange-950/30 hover:shadow-orange-500/25 transition-all cursor-pointer flex items-center gap-2 active:scale-95"
+              >
+                <Heart className="w-4 h-4 fill-current text-white" />
+                <span>DONATE NOW</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </button>
+
+              {/* Primary 2: Explore Our Programmes */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onNavigate) onNavigate('programmes');
+                  else onExploreProject();
+                }}
+                className="px-5 py-3.5 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm tracking-wide border border-white/25 shadow-md hover:shadow-white/10 transition-all cursor-pointer flex items-center gap-2"
+              >
+                <Wheat className="w-4 h-4 text-amber-300" />
+                <span>Explore Our Programmes</span>
+              </button>
+
+              {/* Secondary 1: Our Story */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onNavigate) onNavigate('about');
+                  else onOpenDocModal();
+                }}
+                className="px-4 py-3 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
+              >
+                <Leaf className="w-3.5 h-3.5 text-yellow-300" />
+                <span>Our Story</span>
+              </button>
+
+              {/* Secondary 2: Volunteer With Us */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onNavigate) onNavigate('volunteers');
+                }}
+                className="px-4 py-3 rounded-full bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 transition-all cursor-pointer flex items-center gap-1.5"
+              >
+                <SunMedium className="w-3.5 h-3.5 text-amber-300" />
+                <span>Volunteer With Us</span>
+              </button>
+            </div>
+
+            {/* Slide dots and Annual Targets indicator */}
+            <div className="flex items-center gap-5 pt-3">
+              <div className="flex items-center gap-2">
+                {SLIDES.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => setCurrentSlide(index)}
+                    aria-label={`Jump to slide ${index + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                      index === currentSlide ? 'w-8 bg-amber-400' : 'w-2 bg-white/40 hover:bg-white/70'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Quick scroll indicator to key metrics figures */}
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('key-metrics');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="text-stone-300 hover:text-yellow-300 transition-colors cursor-pointer inline-flex items-center gap-1.5 text-xs font-mono tracking-wider group"
+              >
+                <span>ANNUAL TARGETS</span>
+                <ChevronDown className="w-3.5 h-3.5 animate-bounce group-hover:text-yellow-300 text-yellow-400" />
+              </button>
+            </div>
+
           </div>
 
-          {/* Quick scroll indicator to key metrics figures */}
-          <button
-            type="button"
-            onClick={() => {
-              const el = document.getElementById('key-metrics');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="pt-1 text-stone-300 hover:text-yellow-300 transition-colors cursor-pointer inline-flex items-center gap-1.5 text-xs font-mono tracking-wider group"
-          >
-            <span>ANNUAL TARGETS</span>
-            <ChevronDown className="w-3.5 h-3.5 animate-bounce group-hover:text-yellow-300 text-yellow-400" />
-          </button>
+          {/* ======================================================== */}
+          {/* RIGHT COLUMN: Stadium Arch Layered Photography           */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-5 relative flex justify-center lg:justify-end items-center pt-6 lg:pt-0">
+            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-none flex items-center justify-center">
+              
+              {/* Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl -z-10" />
+
+              {/* 
+                Primary Stadium Arch Photo:
+                Distinctive rounded-t-[100px] rounded-b-[100px] stadium pill frame
+              */}
+              <div className="relative w-64 sm:w-72 lg:w-80 h-[380px] sm:h-[450px] lg:h-[490px] rounded-[90px] sm:rounded-[110px] overflow-hidden border-4 border-white/20 shadow-2xl bg-stone-900 z-10 group">
+                <img
+                  src={activeSlide.image}
+                  alt={activeSlide.alt}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                {/* Pill Badge at the bottom of the main frame */}
+                <div className="absolute bottom-5 inset-x-4 bg-[#0a2318]/90 backdrop-blur-md border border-emerald-700/60 rounded-2xl p-3 text-left">
+                  <div className="text-[11px] font-mono text-amber-300 uppercase tracking-wider font-semibold">
+                    {activeSlide.badgeLabel}
+                  </div>
+                  <div className="text-xs text-stone-200 line-clamp-1 font-medium">
+                    {activeSlide.location}
+                  </div>
+                </div>
+              </div>
+
+              {/* 
+                Secondary Overlapping Stadium Arch Photo:
+                Golden-Yellow outline frame matching the reference screenshot exactly
+              */}
+              <div className="absolute -bottom-6 -right-2 sm:-right-4 lg:-right-6 w-44 sm:w-52 lg:w-56 h-[270px] sm:h-[330px] lg:h-[360px] rounded-[70px] sm:rounded-[85px] overflow-hidden border-4 border-yellow-400 shadow-2xl bg-stone-900 z-20 group">
+                <img
+                  src={secondarySlide.image}
+                  alt={secondarySlide.alt}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                
+                <div className="absolute bottom-4 inset-x-3 text-center">
+                  <span className="inline-block px-3 py-1 rounded-full bg-yellow-400 text-stone-950 text-[10px] sm:text-[11px] font-bold shadow-md">
+                    {secondarySlide.impactMetric}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
 
         </div>
       </div>
